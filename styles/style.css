@@ -1,0 +1,60 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+:root {
+  --darkColor: #222831;
+  --whiteColor: #dddddd;
+  --blueColor: #30475e;
+  --redColor: #f05454;
+}
+body {
+  background-color: var(--darkColor);
+}
+
+.margin {
+  margin-top: 10rem;
+}
+
+.button {
+  outline: none;
+  font-size: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 50%;
+  transition-duration: 0.5s;
+}
+
+.button:hover {
+  opacity: 1;
+  border: 0;
+  color: var(--blueColor);
+  background-color: var(--whiteColor);
+}
+
+.icon {
+  font-size: 2rem;
+}
+
+.deactive {
+  opacity: 0.4;
+  color: var(--whiteColor);
+  background-color: var(--darkColor);
+  border: 1px solid var(--whiteColor);
+}
+
+.active {
+  opacity: 1;
+  border: 0;
+  color: var(--blueColor);
+  background-color: var(--whiteColor);
+}
+
+.country {
+  transition-duration: 0.5s;
+}
+
+.country:hover {
+  opacity: 1;
+  color: var(--blueColor);
+  background-color: var(--whiteColor);
+}
