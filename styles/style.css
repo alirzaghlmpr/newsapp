@@ -7,24 +7,27 @@
   --whiteColor: #dddddd;
   --blueColor: #30475e;
   --redColor: #f05454;
+  --greenColor: rgb(12, 155, 12);
 }
 body {
   background-color: var(--darkColor);
 }
-
+h3 {
+  color: var(--whiteColor);
+}
 .margin {
-  margin-top: 10rem;
+  margin-top: 5rem;
 }
 
-.button {
+.tab {
   outline: none;
   font-size: 1.5rem;
   padding: 1.5rem;
   border-radius: 50%;
-  transition-duration: 0.5s;
+  transition-duration: 0.75s;
 }
 
-.button:hover {
+.tab:hover {
   opacity: 1;
   border: 0;
   color: var(--blueColor);
@@ -49,12 +52,25 @@ body {
   background-color: var(--whiteColor);
 }
 
-.country {
-  transition-duration: 0.5s;
+.data-box {
+  transition-duration: 0.75s;
 }
 
-.country:hover {
+.data-box:hover {
   opacity: 1;
   color: var(--blueColor);
   background-color: var(--whiteColor);
+}
+
+.check-mark {
+  font-size: 1.5rem;
+  color: var(--greenColor);
+}
+
+.show {
+  display: flexbox;
+}
+
+.hide {
+  display: none;
 }

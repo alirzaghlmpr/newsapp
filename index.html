@@ -22,92 +22,170 @@
   <body>
     <div class="container">
       <div class="margin row justify-content-around text-center">
+        <h3 class="text-center mb-5" id="title">
+          Choose the country want to see its news
+        </h3>
         <div class="col-4">
-          <button class="button deactive">
+          <button class="tab active" id="country">
             <i class="bi bi-geo-alt icon"></i><br />
             Country
           </button>
         </div>
         <div class="col-4">
-          <button class="button deactive">
+          <button class="tab deactive" id="category">
             <i class="bi bi-journals icon"></i><br />
             Category
           </button>
         </div>
         <div class="col-4">
-          <button class="button deactive">
+          <button class="tab deactive" id="submit">
             <i class="bi bi-check-circle icon"></i> <br />
             Submit
           </button>
         </div>
       </div>
 
-      <div class="m-2 p-2 row justify-content-around text-center">
+      <div
+        class="m-2 p-2 row justify-content-around text-center show"
+        id="countries-row1"
+      >
         <div class="col-md-3 col-6 my-1">
-          <div class="country text-center p-2 deactive">
+          <div class="country data-box text-center p-2 deactive">
             <img
               src="./assets/images/argentina.png"
               alt=""
               style="width: 50%"
             />
             <br /><br />
-            <p>Argentina</p>
+            <span>Argentina</span>
           </div>
         </div>
         <div class="col-md-3 col-6 my-1">
-          <div class="country text-center p-2 deactive">
+          <div class="country data-box text-center p-2 deactive">
             <img src="./assets/images/france.png" alt="" style="width: 50%" />
             <br /><br />
-            <p>France</p>
+            <span>France</span>
           </div>
         </div>
         <div class="col-md-3 col-6 my-1">
-          <div class="country text-center p-2 deactive">
+          <div class="country data-box text-center p-2 deactive">
             <img src="./assets/images/germany.png" alt="" style="width: 50%" />
             <br /><br />
-            <p>Germany</p>
+            <span>Germany</span>
           </div>
         </div>
         <div class="col-md-3 col-6 my-1">
-          <div class="country text-center p-2 deactive">
+          <div class="country data-box text-center p-2 deactive">
             <img src="./assets/images/italy.png" alt="" style="width: 50%" />
             <br /><br />
-            <p>Italy</p>
+            <span>Italy</span>
           </div>
         </div>
       </div>
 
-      <div class="m-2 p-2 row justify-content-around text-center">
+      <div
+        class="m-2 p-2 row justify-content-around text-center show"
+        id="countries-row2"
+      >
         <div class="col-md-3 col-6 my-1">
-          <div class="country text-center p-2 deactive">
+          <div class="country data-box text-center p-2 deactive">
             <img
               src="./assets/images/united-kingdom.png"
               alt=""
               style="width: 50%"
             />
             <br /><br />
-            <p>UK</p>
+            <span>UK</span>
           </div>
         </div>
         <div class="col-md-3 col-6 my-1">
-          <div class="country text-center p-2 deactive">
+          <div class="country data-box text-center p-2 deactive">
             <img src="./assets/images/japan.png" alt="" style="width: 50%" />
             <br /><br />
-            <p>Japan</p>
+            <span>Japan</span>
           </div>
         </div>
         <div class="col-md-3 col-6 my-1">
-          <div class="country text-center p-2 deactive">
+          <div class="country data-box text-center p-2 deactive">
             <img src="./assets/images/portugal.png" alt="" style="width: 50%" />
             <br /><br />
-            <p>Portugal</p>
+            <span>Portugal</span>
           </div>
         </div>
         <div class="col-md-3 col-6 my-1">
-          <div class="country text-center p-2 deactive">
+          <div class="country data-box text-center p-2 deactive">
             <img src="./assets/images/spain.png" alt="" style="width: 50%" />
             <br /><br />
-            <p>Spain</p>
+            <span>Spain</span>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="m-2 p-2 row justify-content-around text-center hide"
+        id="categories-row1"
+      >
+        <div class="col-md-3 col-6 my-1">
+          <div class="category data-box text-center p-2 deactive">
+            <img src="./assets/images/business.png" alt="" style="width: 50%" />
+            <br /><br />
+            <span>Business</span>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 my-1">
+          <div class="category data-box text-center p-2 deactive">
+            <img
+              src="./assets/images/entertaiment.png"
+              alt=""
+              style="width: 50%"
+            />
+            <br /><br />
+            <span>Entertaiment</span>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 my-1">
+          <div class="category data-box text-center p-2 deactive">
+            <img src="./assets/images/general.png" alt="" style="width: 50%" />
+            <br /><br />
+            <span>General</span>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 my-1">
+          <div class="category data-box text-center p-2 deactive">
+            <img src="./assets/images/health.png" alt="" style="width: 50%" />
+            <br /><br />
+            <span>Health</span>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="m-2 p-2 row justify-content-around text-center hide"
+        id="categories-row2"
+      >
+        <div class="col-md-3 col-6 my-1">
+          <div class="category data-box text-center p-2 deactive">
+            <img src="./assets/images/science.png" alt="" style="width: 50%" />
+            <br /><br />
+            <span>Science</span>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 my-1">
+          <div class="category data-box text-center p-2 deactive">
+            <img
+              src="./assets/images/technology.png"
+              alt=""
+              style="width: 50%"
+            />
+            <br /><br />
+            <span>Technology</span>
+          </div>
+        </div>
+        <div class="col-md-3 col-6 my-1">
+          <div class="category data-box text-center p-2 deactive">
+            <img src="./assets/images/sports.png" alt="" style="width: 50%" />
+            <br /><br />
+            <span>Sports</span>
           </div>
         </div>
       </div>
