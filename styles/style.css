@@ -74,3 +74,30 @@ h3 {
 .hide {
   display: none;
 }
+
+.submit-btn {
+  outline: none;
+  font-size: 1.5rem;
+  padding: 1.5rem;
+  transition-duration: 0.75s;
+  border: 0;
+  border-radius: 1.5rem;
+  background-color: var(--redColor);
+  color: var(--whiteColor);
+}
+
+.submit-btn:hover {
+  color: var(--whiteColor);
+  background-color: var(--blueColor);
+}
+
+#submit-row {
+  font-size: 1.5rem;
+  color: var(--redColor);
+}
+
+#submit-row p {
+  background-color: var(--whiteColor);
+  border-radius: 1.5rem;
+  padding: 0.3rem;
+}

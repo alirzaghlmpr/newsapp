@@ -8,9 +8,11 @@ const dataBoxes = document.querySelectorAll(".data-box"),
   categoriesSections = [
     document.querySelector("#categories-row1"),
     document.querySelector("#categories-row2"),
-  ];
+  ],
+  submitSection = document.querySelector("#submit-row");
 
 let currentTab = tabs[0];
+const news = { country: "", category: "" };
 
 tabs.forEach((tab) => {
   tab.addEventListener("click", (e) => {
@@ -35,6 +37,7 @@ function deactiveAllTabsExcludeSelected(e) {
 
 dataBoxes.forEach(function (box) {
   box.addEventListener("click", function (e) {
+    updateNewsField(box);
     deactiveAllExcludeSeleceted(e);
     box.classList.add("active");
     box.classList.remove("deactive");
@@ -121,6 +124,8 @@ function updateDataBoxes(tabId) {
         section.classList.remove("show");
         section.classList.add("hide");
       });
+
+      submitSection.classList.remove("hide");
     });
   } else if (tabId == "category") {
     countriesSections.map((section) => {
@@ -132,7 +137,68 @@ function updateDataBoxes(tabId) {
       section.classList.remove("hide");
       section.classList.add("show");
     });
+
+    submitSection.classList.remove("hide");
   } else {
-    console.log("3");
+    submitSection.classList.remove("hide");
+    updateSubmitRowFields();
+    countriesSections.map((section) => {
+      section.classList.remove("show");
+      section.classList.add("hide");
+    });
+
+    categoriesSections.map((section) => {
+      section.classList.remove("show");
+      section.classList.add("hide");
+    });
   }
+}
+
+function updateNewsField(box) {
+  if (box.classList.contains("country")) {
+    setNewsCountry(box.lastElementChild.textContent);
+  }
+  if (box.classList.contains("category")) {
+    setNewsCategory(box.lastElementChild.textContent);
+  }
+}
+
+function setNewsCountry(country) {
+  switch (country) {
+    case "Argentina":
+      news.country = "ar";
+      break;
+    case "France":
+      news.country = "fr";
+      break;
+    case "Germany":
+      news.country = "de";
+      break;
+    case "Italy":
+      news.country = "it";
+      break;
+    case "UK":
+      news.country = "gb";
+      break;
+    case "Japan":
+      news.country = "jp";
+      break;
+    case "Portugal":
+      news.country = "pt";
+      break;
+    case "USA":
+      news.country = "us";
+      break;
+  }
+}
+
+function setNewsCategory(category) {
+  news.category = category.toLowerCase();
+  console.log(news.category);
+}
+
+function updateSubmitRowFields() {
+  let fields = submitSection.firstElementChild.children;
+  fields[0].textContent = `seleceted country : ${news.country}`;
+  fields[1].textContent = `seleceted category : ${news.category}`;
 }
