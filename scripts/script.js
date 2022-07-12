@@ -14,16 +14,29 @@ const dataBoxes = document.querySelectorAll(".data-box"),
 let currentTab = tabs[0];
 const news = { country: "", category: "" };
 
-tabs.forEach((tab) => {
-  tab.addEventListener("click", (e) => {
-    currentTab = tab;
-    deactiveAllTabsExcludeSelected(e);
-    tab.classList.add("active");
-    tab.classList.remove("deactive");
-    updateTitle(tab.id);
-    updateDataBoxes(tab.id);
+evenetListener();
+function evenetListener() {
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", (e) => {
+      currentTab = tab;
+      deactiveAllTabsExcludeSelected(e);
+      tab.classList.add("active");
+      tab.classList.remove("deactive");
+      updateTitle(tab.id);
+      updateDataBoxes(tab.id);
+    });
   });
-});
+
+  dataBoxes.forEach(function (box) {
+    box.addEventListener("click", function (e) {
+      updateNewsField(box);
+      deactiveAllExcludeSeleceted(e);
+      box.classList.add("active");
+      box.classList.remove("deactive");
+      addCheckmarkToBox(box);
+    });
+  });
+}
 
 function deactiveAllTabsExcludeSelected(e) {
   for (let i = 0; i < tabs.length; i++) {
@@ -34,16 +47,6 @@ function deactiveAllTabsExcludeSelected(e) {
     tabs[i].classList.remove("active");
   }
 }
-
-dataBoxes.forEach(function (box) {
-  box.addEventListener("click", function (e) {
-    updateNewsField(box);
-    deactiveAllExcludeSeleceted(e);
-    box.classList.add("active");
-    box.classList.remove("deactive");
-    addCheckmarkToBox(box);
-  });
-});
 
 function createDOMelementByClass(tagName, ...classList) {
   let tag = document.createElement(tagName);
@@ -62,14 +65,14 @@ function createCheckMark() {
 }
 
 function deactiveAllExcludeSeleceted(e) {
-  let boxesTabBaseIdentifier = currentTab.id;
+  let tabBoxesIdentifier = currentTab.id;
 
   for (let i = 0; i < dataBoxes.length; i++) {
     if (dataBoxes[i] == e) {
       continue;
     }
 
-    if (dataBoxes[i].classList.contains(boxesTabBaseIdentifier)) {
+    if (dataBoxes[i].classList.contains(tabBoxesIdentifier)) {
       dataBoxes[i].classList.remove("active");
       dataBoxes[i].classList.add("deactive");
       if (dataBoxes[i].lastElementChild.classList.contains("selected")) {
@@ -116,42 +119,34 @@ function updateTitle(tabId) {
 
 function updateDataBoxes(tabId) {
   if (tabId == "country") {
-    countriesSections.map((section) => {
-      section.classList.remove("hide");
-      section.classList.add("show");
+    showElements(countriesSections);
+    hideElements(categoriesSections);
 
-      categoriesSections.map((section) => {
-        section.classList.remove("show");
-        section.classList.add("hide");
-      });
-
-      submitSection.classList.remove("hide");
-    });
+    submitSection.classList.remove("hide");
   } else if (tabId == "category") {
-    countriesSections.map((section) => {
-      section.classList.remove("show");
-      section.classList.add("hide");
-    });
-
-    categoriesSections.map((section) => {
-      section.classList.remove("hide");
-      section.classList.add("show");
-    });
+    hideElements(countriesSections);
+    showElements(categoriesSections);
 
     submitSection.classList.remove("hide");
   } else {
     submitSection.classList.remove("hide");
     updateSubmitRowFields();
-    countriesSections.map((section) => {
-      section.classList.remove("show");
-      section.classList.add("hide");
-    });
 
-    categoriesSections.map((section) => {
-      section.classList.remove("show");
-      section.classList.add("hide");
-    });
+    hideElements(countriesSections);
+    hideElements(categoriesSections);
   }
+}
+function showElements(elements) {
+  elements.map((element) => {
+    element.classList.remove("hide");
+    element.classList.add("show");
+  });
+}
+function hideElements(elements) {
+  elements.map((element) => {
+    element.classList.remove("show");
+    element.classList.add("hide");
+  });
 }
 
 function updateNewsField(box) {
