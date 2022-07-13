@@ -10,10 +10,12 @@ const dataBoxes = document.querySelectorAll(".data-box"),
     document.querySelector("#categories-row2"),
   ],
   submitSection = document.querySelector("#submit-row"),
-  newsSection = document.querySelector("#news-row").firstElementChild,
-  submitBtn = document.querySelector("#submit-btn");
+  newsSection = document.querySelector("#news-row"),
+  submitBtn = document.querySelector("#submit-btn"),
+  apiKey = "1b522d0081624661b5959a1beef75f71";
 
 let currentTab = tabs[0];
+let infos;
 const news = { country: "", category: "" };
 
 evenetListener();
@@ -127,14 +129,17 @@ function updateDataBoxes(tabId) {
     hideElements(categoriesSections);
 
     submitSection.classList.add("hide");
+    newsSection.classList.add("hide");
   } else if (tabId == "category") {
     hideElements(countriesSections);
     showElements(categoriesSections);
 
     submitSection.classList.add("hide");
+    newsSection.classList.add("hide");
   } else {
     submitSection.classList.remove("hide");
-
+    newsSection.classList.remove("hide");
+    deletePrevNews();
     updateSubmitRowFields();
 
     hideElements(countriesSections);
@@ -224,7 +229,7 @@ function hideSpinner() {
   newsSection.firstElementChild.remove();
 }
 
-function getNews(e) {
+async function getNews(e) {
   if (news.category == "" && news.country == "") {
     alert("you should at least select country or category");
     return;
@@ -238,13 +243,87 @@ function getNews(e) {
   showSpinner();
 
   //api//
-
+  infos = [];
+  infos = await fetchData();
+  infos = infos.articles;
   //api//
 
   hideSpinner();
+
+  //append news
+  showNews();
 
   //enabled tabs and buttons =>
   tabs[0].disabled = false;
   tabs[1].disabled = false;
   e.target.disabled = false;
+}
+
+function createQuery(news) {
+  let query = `https://newsapi.org/v2/top-headlines?`;
+  if (news.country != "") {
+    query += `country=${news.country}&`;
+  }
+  if (news.category != "") {
+    query += `category=${news.category}&`;
+  }
+
+  query += `apiKey=${apiKey}`;
+
+  return query;
+}
+
+async function fetchData() {
+  const response = await fetch(createQuery(news));
+  return response.status == 200
+    ? response.json()
+    : new Error(response.statusText);
+}
+
+/*
+ */
+
+function showNews() {
+  const data = { title: "", description: "", image: "", url: "" };
+  infos.map((info) => {
+    data.description = info.description;
+    data.title = info.title;
+    data.url = info.url;
+    data.image = info.urlToImage;
+
+    let newsBlock = createNewsBlock(data);
+    newsSection.appendChild(newsBlock);
+  });
+
+  newsSection.classList.remove("hide");
+}
+
+function createNewsBlock(data) {
+  /*
+        <div class="col-md-3 col-6 my-1">
+          <div class="category data-box text-center p-2 deactive">
+
+ */
+
+  let div = createDOMelementByClass("div", "col-md-3 col-6 my-1");
+
+  div.innerHTML = `
+            <div class="news data-box text-center p-2 deactive">
+            <img src=${data.image} alt="" style="width: 50%" />
+            <br /><br />
+            <strong>${data.title}</strong>
+            <br />
+            <p>${data.description}
+            </p>
+            <a href=${data.url}>click read full news</a>
+          </div>
+  `;
+
+  return div;
+}
+
+function deletePrevNews() {
+  while (newsSection.firstElementChild) {
+    newsSection.remove(newsSection.firstElementChild);
+  }
 }
