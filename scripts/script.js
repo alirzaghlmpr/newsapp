@@ -9,13 +9,17 @@ const dataBoxes = document.querySelectorAll(".data-box"),
     document.querySelector("#categories-row1"),
     document.querySelector("#categories-row2"),
   ],
-  submitSection = document.querySelector("#submit-row");
+  submitSection = document.querySelector("#submit-row"),
+  newsSection = document.querySelector("#news-row").firstElementChild,
+  submitBtn = document.querySelector("#submit-btn");
 
 let currentTab = tabs[0];
 const news = { country: "", category: "" };
 
 evenetListener();
 function evenetListener() {
+  submitBtn.addEventListener("click", getNews);
+
   tabs.forEach((tab) => {
     tab.addEventListener("click", (e) => {
       currentTab = tab;
@@ -122,14 +126,15 @@ function updateDataBoxes(tabId) {
     showElements(countriesSections);
     hideElements(categoriesSections);
 
-    submitSection.classList.remove("hide");
+    submitSection.classList.add("hide");
   } else if (tabId == "category") {
     hideElements(countriesSections);
     showElements(categoriesSections);
 
-    submitSection.classList.remove("hide");
+    submitSection.classList.add("hide");
   } else {
     submitSection.classList.remove("hide");
+
     updateSubmitRowFields();
 
     hideElements(countriesSections);
@@ -139,12 +144,10 @@ function updateDataBoxes(tabId) {
 function showElements(elements) {
   elements.map((element) => {
     element.classList.remove("hide");
-    element.classList.add("show");
   });
 }
 function hideElements(elements) {
   elements.map((element) => {
-    element.classList.remove("show");
     element.classList.add("hide");
   });
 }
@@ -189,11 +192,59 @@ function setNewsCountry(country) {
 
 function setNewsCategory(category) {
   news.category = category.toLowerCase();
-  console.log(news.category);
 }
 
 function updateSubmitRowFields() {
   let fields = submitSection.firstElementChild.children;
   fields[0].textContent = `seleceted country : ${news.country}`;
   fields[1].textContent = `seleceted category : ${news.category}`;
+}
+
+function createSpinner() {
+  let spinner = document.createElement("div");
+  spinner.innerHTML = `
+  <strong style="color:var(--whiteColor)">Searching ... </strong>
+  <br>
+  <img
+  src="./assets/gif/spinner.gif"
+  style="width: 120px"
+  class="text-center"
+  alt=""
+/>`;
+
+  return spinner;
+}
+
+function showSpinner() {
+  let spinner = createSpinner();
+  newsSection.appendChild(spinner);
+}
+
+function hideSpinner() {
+  newsSection.firstElementChild.remove();
+}
+
+function getNews(e) {
+  if (news.category == "" && news.country == "") {
+    alert("you should at least select country or category");
+    return;
+  }
+
+  //disabled tabs and buttons =>
+  tabs[0].disabled = true;
+  tabs[1].disabled = true;
+  e.target.disabled = true;
+
+  showSpinner();
+
+  //api//
+
+  //api//
+
+  hideSpinner();
+
+  //enabled tabs and buttons =>
+  tabs[0].disabled = false;
+  tabs[1].disabled = false;
+  e.target.disabled = false;
 }
