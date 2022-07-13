@@ -1,5 +1,8 @@
+///////////////// modules /////////////////
 import * as util from "./utilities.js";
+///////////////// modules /////////////////
 
+///////////////// variables /////////////////
 const dataBoxes = document.querySelectorAll(".data-box"),
   tabs = document.querySelectorAll(".tab"),
   title = document.querySelector("#title"),
@@ -20,10 +23,15 @@ let currentTab = tabs[0];
 let infos;
 const news = { country: "", category: "" };
 
+///////////////// variables /////////////////
+
+///////////////// event listeners /////////////////
 evenetListener();
 function evenetListener() {
+  //event when click on 'search for news' button
   submitBtn.addEventListener("click", getNews);
 
+  //event for tabs when clicked
   tabs.forEach((tab) => {
     tab.addEventListener("click", (e) => {
       currentTab = tab;
@@ -35,6 +43,7 @@ function evenetListener() {
     });
   });
 
+  //event for databoxes when clicked
   dataBoxes.forEach(function (box) {
     box.addEventListener("click", function (e) {
       updateNewsField(box);
@@ -45,7 +54,11 @@ function evenetListener() {
     });
   });
 }
+///////////////// event listeners /////////////////
 
+///////////////// functions /////////////////
+
+//function for updateDataBoxes base on tab we are in
 function updateDataBoxes(tabId) {
   if (tabId == "country") {
     util.showElements(countriesSections);
@@ -70,6 +83,7 @@ function updateDataBoxes(tabId) {
   }
 }
 
+//function for update news field
 function updateNewsField(box) {
   if (box.classList.contains("country")) {
     util.setNewsCountry(box.lastElementChild.textContent, news);
@@ -79,51 +93,51 @@ function updateNewsField(box) {
   }
 }
 
+//function for update the submit section infos
 function updateSubmitRowFields() {
   let fields = submitSection.firstElementChild.children;
   fields[0].textContent = `seleceted country : ${news.country}`;
   fields[1].textContent = `seleceted category : ${news.category}`;
 }
 
+//function for show spinner
 function showSpinner() {
   let spinner = util.createSpinner();
   newsSection.appendChild(spinner);
 }
 
+//function for hide spinner
 function hideSpinner() {
   newsSection.firstElementChild.remove();
 }
 
+//async function for get the news and put it on right place
 async function getNews(e) {
   if (news.category == "" && news.country == "") {
     alert("you should at least select country or category");
     return;
   }
 
-  //disabled tabs and buttons =>
   tabs[0].disabled = true;
   tabs[1].disabled = true;
   e.target.disabled = true;
 
   showSpinner();
 
-  //api//
   infos = [];
   infos = await fetchData();
   infos = infos.articles;
-  //api//
 
   hideSpinner();
 
-  //append news
   util.showNews(newsSection, infos);
 
-  //enabled tabs and buttons =>
   tabs[0].disabled = false;
   tabs[1].disabled = false;
   e.target.disabled = false;
 }
 
+//function for fetch the data and return the response of the API
 async function fetchData() {
   const response = await fetch(util.createQuery(news, apiKey));
   return response.status == 200
@@ -131,6 +145,8 @@ async function fetchData() {
     : new Error(response.statusText);
 }
 
+//function for delete the previous news
 function deletePrevNews() {
   newsSection.innerHTML = "";
 }
+///////////////// functions /////////////////

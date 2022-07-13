@@ -1,3 +1,4 @@
+//function for deactive tabs and active the tab click on
 export function deactiveAllTabsExcludeSelected(e, tabs) {
   for (let i = 0; i < tabs.length; i++) {
     if (tabs[i] == e) {
@@ -8,6 +9,7 @@ export function deactiveAllTabsExcludeSelected(e, tabs) {
   }
 }
 
+//function for create DOM element base on class list
 export function createDOMelementByClass(tagName, ...classList) {
   let tag = document.createElement(tagName);
   if (classList != "") {
@@ -20,6 +22,9 @@ export function createDOMelementByClass(tagName, ...classList) {
   return tag;
 }
 
+//function for deactive databoxes except the ones click on it ,
+// this function will need an identifier to detect in which tab are we are to
+// deactive the databoxes related to tab
 export function deactiveAllExcludeSeleceted(e, identifier, dataBoxes) {
   for (let i = 0; i < dataBoxes.length; i++) {
     if (dataBoxes[i] == e) {
@@ -36,6 +41,7 @@ export function deactiveAllExcludeSeleceted(e, identifier, dataBoxes) {
   }
 }
 
+//function for add checkmark to the databox , if it is already selected , if will return
 export function addCheckmarkToBox(box) {
   if (box.lastElementChild.classList.contains("selected")) {
     return;
@@ -52,6 +58,7 @@ export function addCheckmarkToBox(box) {
   box.appendChild(spanTag);
 }
 
+//function for update the title of the page base on tab we click on
 export function updateTitle(tabId, titleTag) {
   let text = "";
   switch (tabId) {
@@ -71,18 +78,23 @@ export function updateTitle(tabId, titleTag) {
   titleTag.textContent = text;
 }
 
+//function for remove 'hide' class from classlist to show elements
+// the function argument 'elements' must be nodeList
 export function showElements(elements) {
   elements.map((element) => {
     element.classList.remove("hide");
   });
 }
 
+//function for add 'hide' class to classlist to hide elements
+// the function argument 'elements' must be nodeList
 export function hideElements(elements) {
   elements.map((element) => {
     element.classList.add("hide");
   });
 }
 
+//function for create a spinner
 export function createSpinner() {
   let spinner = document.createElement("div");
   spinner.innerHTML = `
@@ -98,6 +110,7 @@ export function createSpinner() {
   return spinner;
 }
 
+//function for create API query base on apiKey and collected data
 export function createQuery(news, apiKey) {
   let query = `https://newsapi.org/v2/top-headlines?`;
   if (news.country != "") {
@@ -112,6 +125,7 @@ export function createQuery(news, apiKey) {
   return query;
 }
 
+//function for show the news collected from API response
 export function showNews(newsSection, infos) {
   const data = { title: "", description: "", image: "", url: "" };
   infos.map((info) => {
@@ -127,6 +141,7 @@ export function showNews(newsSection, infos) {
   newsSection.classList.remove("hide");
 }
 
+//function for create a news block base on info we get from response
 function createNewsBlock(data) {
   let div = createDOMelementByClass("div", "col-md-3 col-6 my-1");
 
@@ -145,6 +160,7 @@ function createNewsBlock(data) {
   return div;
 }
 
+//function for set the news country base on API params
 export function setNewsCountry(country, news) {
   switch (country) {
     case "Argentina":
@@ -174,6 +190,7 @@ export function setNewsCountry(country, news) {
   }
 }
 
+//function for set the news category base on API params
 export function setNewsCategory(category, news) {
   news.category = category.toLowerCase();
 }

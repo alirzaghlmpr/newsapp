@@ -12,7 +12,8 @@
 body {
   background-color: var(--darkColor);
 }
-h3 {
+h3,
+h2 {
   color: var(--whiteColor);
 }
 .margin {
